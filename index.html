@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About This Program - Understanding AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 100%;
+            max-height: 1600px;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow: hidden;
+        }
+        
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            height: 1600px;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+        }
+        
+        .scroll-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .scroll-content::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .scroll-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .scroll-content::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 5px;
+        }
+        
+        .scroll-content::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            color: #555;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        .intro-box {
+            background: linear-gradient(135deg, #e8f4f8 0%, #e3f2fd 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 20px;
+        }
+
+        .philosophy-box {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+        }
+
+        .highlight-box {
+            background: #f3e5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+            margin: 15px 0;
+        }
+
+        .note-box {
+            background: #fff9c4;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #fbc02d;
+            margin: 15px 0;
+        }
+
+        .note-box::before {
+            content: "💡 Important: ";
+            font-weight: bold;
+            color: #f57c00;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .lesson-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .lesson-type-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .lesson-type-card h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .print-button:hover {
+            background: #764ba2;
+        }
+
+        strong {
+            color: #333;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+            body {
+                background: white;
+                max-height: none;
+                overflow: visible;
+            }
+            .page-container {
+                height: auto;
+            }
+            .scroll-content {
+                overflow: visible;
+            }
+            .section {
+                page-break-inside: avoid;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="header">
+            <h1>About This Program</h1>
+            <div class="subtitle">Understanding AI: A Conceptual Approach for Social Sciences</div>
+            <div style="margin-top: 15px; opacity: 0.9;">Teacher's Implementation Guide</div>
+        </div>
+        
+        <div class="scroll-content">
+            <button class="print-button" onclick="window.print()">🖨️ Print Guide</button>
+
+            <div class="section">
+                <div class="intro-box">
+                    <h2 style="margin-top: 0; border: none; color: #1976d2;">Welcome to Understanding AI</h2>
+                    <p>This course represents a fundamentally different approach to teaching machine learning and artificial intelligence. Rather than targeting computer science or advanced math students, <strong>Understanding AI</strong> brings these critical concepts to social science students through hands-on experimentation, creative application, and critical analysis of AI's societal impact.</p>
+                    <p style="margin-top: 10px;">Your students won't write code or solve complex equations. Instead, they'll become AI researchers—conducting systematic experiments, documenting observations, and developing the literacy skills needed to navigate an AI-shaped world.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Course Philosophy</h2>
+
+                <h3>Why Social Sciences?</h3>
+                <div class="philosophy-box">
+                    <p>Social science students are uniquely positioned to understand AI's most important dimensions:</p>
+                    <ul>
+                        <li><strong>Ethical implications</strong> of algorithmic decision-making</li>
+                        <li><strong>Social impact</strong> of AI systems on communities and democracy</li>
+                        <li><strong>Bias and fairness</strong> in machine learning applications</li>
+                        <li><strong>Human behavior</strong> in relationship to AI technology</li>
+                        <li><strong>Policy questions</strong> surrounding AI regulation and governance</li>
+                    </ul>
+                    <p style="margin-top: 15px;">These students may not become AI engineers, but they'll become the citizens, policymakers, journalists, educators, counselors, and community leaders who shape how AI is developed, deployed, and regulated. They need AI literacy as urgently as any computer science major—perhaps more so.</p>
+                </div>
+
+                <h3>The "Alia" Approach</h3>
+                <p>Throughout this course, students work with <strong>Alia</strong>—our name for the AI system built on Anthropic's Claude. Why give it a name?</p>
+                <ol>
+                    <li><strong>Demystification:</strong> A named entity feels less intimidating than "artificial intelligence system"</li>
+                    <li><strong>Relationship building:</strong> Students develop a working partnership with their AI lab partner</li>
+                    <li><strong>Consistency:</strong> The same system throughout ensures reliable progression of understanding</li>
+                    <li><strong>Personal connection:</strong> Just as students might name a class pet, Alia becomes familiar</li>
+                </ol>
+                <p style="margin-top: 15px;">Students don't just chat with AI—they conduct structured experiments, test hypotheses, and document findings scientifically. This transforms passive consumption into active investigation.</p>
+            </div>
+
+            <div class="section">
+                <h2>Course Structure Overview</h2>
+
+                <h3>0.5 Credit Semester Course</h3>
+                <ul>
+                    <li><strong>Duration:</strong> 16-17 weeks (approximately 88 lessons)</li>
+                    <li><strong>Meeting frequency:</strong> Daily periods (50 minutes recommended)</li>
+                    <li><strong>Credits:</strong> Half credit, typically satisfying social studies elective requirements</li>
+                </ul>
+
+                <h3>Four Lesson Types</h3>
+                <p>The course alternates between four distinct lesson types, each serving specific pedagogical purposes:</p>
+
+                <div class="lesson-type-grid">
+                    <div class="lesson-type-card">
+                        <h4>1. Lesson Days (28 total)</h4>
+                        <p><strong>Purpose:</strong> Introduce foundational concepts and terminology</p>
+                        <p><strong>Structure:</strong> Direct instruction, guided discussions, concept exploration</p>
+                        <p><strong>Student role:</strong> Active listening, note-taking, concept processing</p>
+                    </div>
+
+                    <div class="lesson-type-card">
+                        <h4>2. Lab Days (25 total)</h4>
+                        <p><strong>Purpose:</strong> Hands-on experimentation with Alia (AI system)</p>
+                        <p><strong>Structure:</strong> Structured experiments with hypothesis testing</p>
+                        <p><strong>Student role:</strong> Active researchers conducting experiments</p>
+                        <p><strong>Key component:</strong> Field journal documentation</p>
+                    </div>
+
+                    <div class="lesson-type-card">
+                        <h4>3. Discussion Days (19 total)</h4>
+                        <p><strong>Purpose:</strong> Analysis, reflection, synthesis, and peer learning</p>
+                        <p><strong>Structure:</strong> Socratic seminars, small group analysis, class debates</p>
+                        <p><strong>Student role:</strong> Critical thinkers, discussion participants</p>
+                    </div>
+
+                    <div class="lesson-type-card">
+                        <h4>4. Project Days (8 total)</h4>
+                        <p><strong>Purpose:</strong> Apply AI collaboration skills to creative writing</p>
+                        <p><strong>Structure:</strong> Independent work with AI as creative partner</p>
+                        <p><strong>Student role:</strong> Creative writers, AI collaborators</p>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    Assessment Days (8 total) provide formal evaluation of chapter understanding through written assessments, performance tasks, and portfolio reviews.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>The Field Journal: Heart of Scientific Learning</h2>
+
+                <h3>What is the Field Journal?</h3>
+                <p>The <strong>Field Journal</strong> is where students document every lab experiment throughout the semester. Think of it as a scientist's lab notebook—a systematic record of hypotheses, observations, analyses, and insights.</p>
+
+                <h3>Why Field Journals Matter</h3>
+                <div class="highlight-box">
+                    <h4>For students:</h4>
+                    <ul>
+                        <li>Transforms scattered AI interactions into systematic investigation</li>
+                        <li>Develops scientific thinking and documentation skills</li>
+                        <li>Creates study resource for assessments</li>
+                        <li>Builds habit of reflective practice</li>
+                        <li>Demonstrates learning progression over time</li>
+                    </ul>
+
+                    <h4>For teachers:</h4>
+                    <ul>
+                        <li>Provides ongoing formative assessment data</li>
+                        <li>Reveals student thinking and misconceptions</li>
+                        <li>Documents student growth across semester</li>
+                        <li>Offers alternative assessment for diverse learners</li>
+                        <li>Creates accountability for lab engagement</li>
+                    </ul>
+                </div>
+
+                <h3>Field Journal Structure</h3>
+                <p>Each lab day includes a structured journal entry with scaffolded prompts. The scaffolding gradually releases over the semester:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Phase</th>
+                                <th>Chapters</th>
+                                <th>Scaffolding Level</th>
+                                <th>Student Focus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Early</strong></td>
+                                <td>1-3</td>
+                                <td>Highly structured</td>
+                                <td>Complete hypothesis frameworks provided. Specific observation prompts. Guided analysis. Focus on accurate documentation.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Middle</strong></td>
+                                <td>4-6</td>
+                                <td>Moderate scaffolding</td>
+                                <td>Hypothesis frameworks provided, students fill specifics. Observation categories given. Students connect to broader concepts.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Later</strong></td>
+                                <td>7-8</td>
+                                <td>Minimal scaffolding</td>
+                                <td>Students generate own hypotheses. Self-directed observation and analysis. Independent connections to real-world applications.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Grading Field Journals</h3>
+                <p>Field journals are <strong>NOT graded on "right answers"</strong>—they're graded on:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Criterion</th>
+                                <th>Weight</th>
+                                <th>What to Look For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Completeness</strong></td>
+                                <td>40%</td>
+                                <td>All sections attempted. Evidence of effort and engagement. Timely completion.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Specificity</strong></td>
+                                <td>30%</td>
+                                <td>Concrete examples from experiments. Detailed observations (not vague generalizations). Accurate documentation of AI responses.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thoughtfulness</strong></td>
+                                <td>30%</td>
+                                <td>Evidence of critical thinking. Connections between observations and concepts. Insightful questions and analysis.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="note-box">
+                    <strong>Grading efficiency tip:</strong> Use a simple 3-point scale for each criterion: 3 = Exceeds expectations, 2 = Meets expectations, 1 = Needs improvement. Total: 9 possible points per entry. Quick calculation: (points earned / 9) × 100 = percentage grade.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>The Creative Writing Project: Applying AI Collaboration</h2>
+
+                <h3>Project Overview</h3>
+                <p>Throughout the semester, students develop a creative writing project (short story, narrative, or creative piece) in collaboration with Alia. This isn't "AI writes your story"—it's learning to use AI as a thinking partner while maintaining human creative control.</p>
+
+                <h3>Project Days (8 total across semester)</h3>
+                <ul>
+                    <li><strong>Project Day 1</strong> (Lesson 1.6): Story planning and AI brainstorming</li>
+                    <li><strong>Project Day 2</strong> (Lesson 2.9): Character development with AI collaboration</li>
+                    <li><strong>Project Day 3</strong> (Lesson 2.10): Pattern recognition in story structures</li>
+                    <li><strong>Project Day 4</strong> (Lesson 3.9): Plot development using prompt engineering</li>
+                    <li><strong>Project Day 5</strong> (Lesson 4.8): Using AI prediction for narrative choices</li>
+                    <li><strong>Project Day 6</strong> (Lesson 5.7): Analyzing bias in creative AI suggestions</li>
+                    <li><strong>Project Day 7</strong> (Lesson 7.7): Distinguishing authentic vs. AI content</li>
+                    <li><strong>Project Day 8</strong> (Lesson 8.3 & 8.7): Final compilation and reflection</li>
+                </ul>
+
+                <h3>Why Creative Writing?</h3>
+                <ol>
+                    <li><strong>Accessible to all students</strong> regardless of technical background</li>
+                    <li><strong>Personally meaningful</strong> - students create something uniquely theirs</li>
+                    <li><strong>Demonstrates AI collaboration skills</strong> in low-stakes environment</li>
+                    <li><strong>Reveals AI capabilities and limitations</strong> through creative constraints</li>
+                    <li><strong>Builds portfolio</strong> students can share beyond the course</li>
+                    <li><strong>Engages different learning styles</strong> than traditional academic work</li>
+                </ol>
+
+                <div class="note-box">
+                    This is NOT an English class creative writing assignment. Students are assessed on their <strong>AI literacy skills</strong>, not their literary talent. Focus is on quality of AI collaboration, prompt engineering, and understanding of AI capabilities/limitations.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Grading Structure and Components</h2>
+
+                <h3>Course Grade Composition</h3>
+                <p>The semester grade is calculated from five components:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Weight</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Chapter Assignments</strong></td>
+                                <td>20%</td>
+                                <td>Questions embedded in lessons (8 chapters total)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chapter Exams</strong></td>
+                                <td>40%</td>
+                                <td>End-of-chapter assessments (8 exams total)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Class Participation</strong></td>
+                                <td>10%</td>
+                                <td>Engagement during lesson and discussion days</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Field Journal</strong></td>
+                                <td>15%</td>
+                                <td>Lab day documentation across all chapters</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Creative Writing Project</strong></td>
+                                <td>15%</td>
+                                <td>Semester-long AI collaboration portfolio</td>
+                            </tr>
+                            <tr style="background: #e8f4f8; font-weight: bold;">
+                                <td><strong>Total</strong></td>
+                                <td>100%</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Component 1: Chapter Assignments (20%)</h3>
+                <div class="highlight-box">
+                    <h4>What Are Chapter Assignments?</h4>
+                    <p>Chapter Assignments consist of questions embedded within the core lessons that students answer as they read or watch lesson content. These questions assess comprehension and engagement with the material.</p>
+
+                    <h4>The 4-Point Rubric System</h4>
+                    <p>Teachers grade each question using a simple 4-point scale:</p>
+                    <ul>
+                        <li><strong>1 = Needs Work:</strong> Answer shows minimal understanding or effort</li>
+                        <li><strong>2 = Making Progress:</strong> Answer shows partial understanding with gaps</li>
+                        <li><strong>3 = You Got It:</strong> Answer demonstrates solid understanding (this is the target/perfect score)</li>
+                        <li><strong>4 = Above and Beyond:</strong> Answer shows exceptional insight or connections beyond expectations</li>
+                    </ul>
+
+                    <div class="note-box">
+                        <strong>Important:</strong> A score of <strong>3 ("You Got It")</strong> is considered perfect/100%. Students who earn a 3 on every question have fully mastered the material. A score of 4 is reserved for truly exceptional work that goes beyond what was asked.
+                    </div>
+
+                    <h4>Point Threshold for 100%</h4>
+                    <p>The point threshold for earning 100% on a Chapter Assignment = <strong>Number of Questions × 3</strong></p>
+                    <p><strong>Example:</strong> If Chapter 2 has 15 questions:</p>
+                    <ul>
+                        <li>Perfect score (100%) = 15 questions × 3 = 45 points</li>
+                        <li>Student who earns all 3s = 45 points = 100%</li>
+                        <li>Student who earns mix of 3s and 4s = more than 45 points = over 100% (extra credit)</li>
+                    </ul>
+
+                    <h4>Flexibility for Teachers</h4>
+                    <p>The platform allows teachers to customize their course by adding or removing questions from lessons as they see fit. Because of this flexibility, the exact number of questions per chapter may vary. Teachers should:</p>
+                    <ol>
+                        <li>Determine final question count for each chapter based on their customization</li>
+                        <li>Calculate point threshold: (Number of Questions × 3)</li>
+                        <li>Communicate this threshold to students at the start of each chapter</li>
+                        <li>Grade using the 1-4 rubric described above</li>
+                    </ol>
+
+                    <h4>There Are 8 Chapter Assignments</h4>
+                    <p>Since there are 8 chapters in the course, students complete 8 Chapter Assignments over the semester. Each Chapter Assignment counts equally toward the 20% total for this component.</p>
+                </div>
+
+                <h3>Component 2: Chapter Exams (40%)</h3>
+                <div class="highlight-box">
+                    <p>Chapter Exams are formal assessments given at the end of each chapter (8 exams total). These exams assess deeper understanding, application, and synthesis of chapter concepts. Format may include multiple choice, short answer, scenario analysis, and performance tasks.</p>
+                    <p><strong>Each exam counts equally</strong> toward the 40% total for this component.</p>
+                </div>
+
+                <h3>Component 3: Class Participation (10%)</h3>
+                <div class="highlight-box">
+                    <p>Class Participation includes:</p>
+                    <ul>
+                        <li>Active engagement during Lesson Days and Discussion Days</li>
+                        <li>Quality of contributions to class dialogue</li>
+                        <li>Collaborative work during group activities</li>
+                        <li>Professional conduct during Lab Days</li>
+                    </ul>
+                    <p>Teachers should track participation throughout each chapter and assign grades at natural checkpoints (e.g., end of chapter, mid-semester, end of semester).</p>
+                </div>
+
+                <h3>Component 4: Field Journal (15%)</h3>
+                <div class="highlight-box">
+                    <p>Field Journal entries document all lab experiments throughout the semester. Students complete approximately 25-28 journal entries total across all lab days.</p>
+                    
+                    <p><strong>Grading Field Journal Entries:</strong></p>
+                    <p>Field journals are <strong>NOT graded on "right answers"</strong>—they're graded on:</p>
+                    <ul>
+                        <li><strong>Completeness (40%):</strong> All sections attempted, evidence of effort</li>
+                        <li><strong>Specificity (30%):</strong> Concrete examples from experiments, detailed observations</li>
+                        <li><strong>Thoughtfulness (30%):</strong> Critical thinking, connections to concepts, insightful analysis</li>
+                    </ul>
+
+                    <p><strong>Suggested approach:</strong> Use a simple 3-point scale for each criterion (3 = Exceeds, 2 = Meets, 1 = Needs improvement). Total: 9 possible points per entry. Convert to percentage: (points earned / 9) × 100.</p>
+
+                    <p>See the Field Journal section elsewhere in this guide for detailed grading information and scaffolding progression.</p>
+                </div>
+
+                <h3>Component 5: Creative Writing Project (15%)</h3>
+                <div class="highlight-box">
+                    <p>The Creative Writing Project is a semester-long portfolio developed through 8 Project Days across the course. Students are assessed on:</p>
+                    <ul>
+                        <li><strong>Quality of AI collaboration</strong> (not literary quality)</li>
+                        <li>Evidence of thoughtful prompt engineering</li>
+                        <li>Demonstration of understanding AI capabilities/limitations</li>
+                        <li>Reflection on human-AI creative partnership</li>
+                        <li>Creative risk-taking and experimentation</li>
+                    </ul>
+                    <p>The project is assessed holistically at semester's end with a detailed rubric provided in the Creative Writing Project section of this guide.</p>
+                </div>
+
+                <h3>Calculating Semester Grades</h3>
+                <p>Final semester grade is calculated by combining the weighted percentages from all five components:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Grade</th>
+                                <th>Percentage Range</th>
+                                <th>Mastery Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>A</strong></td>
+                                <td>90-100%</td>
+                                <td>Exceptional AI literacy and engagement</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B</strong></td>
+                                <td>80-89%</td>
+                                <td>Strong AI literacy and consistent effort</td>
+                            </tr>
+                            <tr>
+                                <td><strong>C</strong></td>
+                                <td>70-79%</td>
+                                <td>Adequate AI literacy and participation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D</strong></td>
+                                <td>60-69%</td>
+                                <td>Developing AI literacy, needs improvement</td>
+                            </tr>
+                            <tr>
+                                <td><strong>F</strong></td>
+                                <td>Below 60%</td>
+                                <td>Insufficient progress</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Why This Grading Structure?</h3>
+                <ol>
+                    <li><strong>Balanced assessment:</strong> Multiple components measure different aspects of AI literacy</li>
+                    <li><strong>Regular feedback:</strong> Students receive grades throughout semester, not just at end</li>
+                    <li><strong>Flexibility:</strong> Teachers can customize assignments while maintaining consistent standards</li>
+                    <li><strong>Growth-oriented:</strong> The 4-point rubric clarifies expectations and rewards solid understanding</li>
+                    <li><strong>Multiple pathways:</strong> Students can demonstrate mastery through exams, journals, participation, and creative work</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>Classroom Setup and Technology Requirements</h2>
+
+                <h3>Technology Needs (Per Student)</h3>
+                <div class="highlight-box">
+                    <h4>Required:</h4>
+                    <ul>
+                        <li>Device with internet access (laptop, Chromebook, or tablet)</li>
+                        <li>Access to Claude.ai (free tier sufficient)</li>
+                        <li>Email account for Claude.ai registration</li>
+                        <li>Google Docs or Word for field journal (if digital)</li>
+                    </ul>
+
+                    <h4>Optional but helpful:</h4>
+                    <ul>
+                        <li>Printer access for journal entries (if students prefer physical journals)</li>
+                        <li>Second monitor/screen for side-by-side work</li>
+                        <li>Headphones for focused individual work</li>
+                    </ul>
+                </div>
+
+                <h3>Claude.ai Account Setup</h3>
+                <p><strong>Week 1 logistics:</strong></p>
+                <ol>
+                    <li><strong>Privacy considerations:</strong> Inform parents/guardians about AI tool usage</li>
+                    <li><strong>Account creation:</strong> Students create free Claude.ai accounts (requires email)</li>
+                    <li><strong>Age requirements:</strong> Students must be 13+ to create accounts per terms of service</li>
+                    <li><strong>Teacher guidance:</strong> Walk students through account creation in class</li>
+                </ol>
+
+                <div class="note-box">
+                    <strong>Data privacy notes:</strong> Conversations with Claude are stored but not used to train AI models without consent. Students should avoid sharing personal identifying information in experiments. School/district may want to review Anthropic's privacy policy.
+                </div>
+
+                <h3>Classroom Configuration</h3>
+                <p><strong>Optimal setup:</strong></p>
+                <ul>
+                    <li>Tables/desks that allow easy device use</li>
+                    <li>Flexibility for individual work, partner work, and whole-group discussion</li>
+                    <li>Ability to project teacher device for demonstrations</li>
+                    <li>Space for movement between lesson types</li>
+                </ul>
+
+                <p><strong>Lab day considerations:</strong></p>
+                <ul>
+                    <li>Students need focused work space (minimize distractions)</li>
+                    <li>Quick access to field journals (physical or digital)</li>
+                    <li>Teacher mobility to circulate and observe student work</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Differentiation and Support Strategies</h2>
+
+                <h3>For Students Who Need More Support</h3>
+                <div class="philosophy-box">
+                    <h4>During Lesson Days:</h4>
+                    <ul>
+                        <li>Provide guided notes with sentence stems</li>
+                        <li>Use visual organizers for complex concepts</li>
+                        <li>Pre-teach vocabulary before lessons</li>
+                        <li>Offer audio recordings of key content</li>
+                    </ul>
+
+                    <h4>During Lab Days:</h4>
+                    <ul>
+                        <li>Pair with confident partner</li>
+                        <li>Provide simplified experiment protocols</li>
+                        <li>Allow verbal response recording (transcribe later)</li>
+                        <li>Break experiments into smaller steps</li>
+                        <li>Extend time for journal documentation</li>
+                    </ul>
+
+                    <h4>For Field Journals:</h4>
+                    <ul>
+                        <li>Provide sentence stems and frames</li>
+                        <li>Allow bullet points instead of paragraphs</li>
+                        <li>Accept alternative documentation (voice memos, drawings with captions)</li>
+                        <li>Conference individually to guide entries</li>
+                    </ul>
+                </div>
+
+                <h3>For Advanced Students</h3>
+                <div class="philosophy-box">
+                    <h4>During Lesson Days:</h4>
+                    <ul>
+                        <li>Provide extension readings/resources</li>
+                        <li>Assign mini-research tasks on topics of interest</li>
+                        <li>Invite to prepare brief presentations</li>
+                    </ul>
+
+                    <h4>During Lab Days:</h4>
+                    <ul>
+                        <li>Encourage more complex experiments</li>
+                        <li>Challenge to design additional tests</li>
+                        <li>Ask to document unexpected patterns</li>
+                        <li>Provide advanced analysis questions</li>
+                    </ul>
+
+                    <h4>For Field Journals:</h4>
+                    <ul>
+                        <li>Encourage hypothesis generation beyond provided frameworks</li>
+                        <li>Ask for connections to outside research/readings</li>
+                        <li>Invite speculation about underlying mechanisms</li>
+                    </ul>
+                </div>
+
+                <h3>English Language Learners</h3>
+                <ul>
+                    <li>Provide vocabulary lists with definitions and visuals</li>
+                    <li>Allow use of translation tools during AI experiments</li>
+                    <li>Permit field journals in primary language (if teacher can assess)</li>
+                    <li>Pair with bilingual buddies during group work</li>
+                    <li>Use graphic organizers to structure thinking</li>
+                    <li>Pre-teach idioms and culturally-specific references</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Common Teacher Questions</h2>
+
+                <h3>"I'm not a computer science teacher. Can I really teach this?"</h3>
+                <p><strong>Yes, absolutely.</strong> This course is designed for social science teachers, not CS teachers. You don't need to understand how neural networks work at a technical level—you need to facilitate student discovery of how AI behaves and impacts society. If you can moderate a discussion and guide student inquiry, you can teach this course.</p>
+                <p>The teacher's guides provide all technical background you need. You're learning alongside your students, which models lifelong learning perfectly.</p>
+
+                <h3>"What if students ask technical questions I can't answer?"</h3>
+                <p>This is an opportunity, not a problem. Respond with: "That's a great question. Let's design an experiment to investigate it." Or: "I don't know—let's research that together."</p>
+                <p>You're teaching scientific thinking, not memorized facts. "I don't know, let's find out" is a perfectly appropriate teacher response in this course.</p>
+
+                <h3>"How much time does grading field journals take?"</h3>
+                <p>With practice, expect 15-20 minutes per set of 25 journals using the rubric approach. That's roughly 30-40 seconds per entry. You're not reading every word—you're scanning for completion, specificity, and thoughtfulness.</p>
+                <p>Many teachers grade journals during students' independent project work time or as students complete chapter assessments.</p>
+
+                <h3>"What if a student uses AI to write their field journal?"</h3>
+                <p>This would be immediately obvious—field journals document specific experiments each student conducted. AI can't accurately describe what Alia said to THIS student during THIS experiment.</p>
+                <p>If you suspect AI-generated journal entries, conference with the student: "Walk me through what happened when you asked Alia [specific question from their experiment]." Authentic entries will include specific details; AI-generated entries will be generic.</p>
+
+                <h3>"What about students who don't have home internet access?"</h3>
+                <p>All work can be completed during class time. Project days and lab days don't require homework. If students want to work outside class, provide time during school (study hall, library, before/after school) when possible.</p>
+
+                <h3>"How do I handle inappropriate AI interactions?"</h3>
+                <p>Set clear expectations in Week 1: "Alia is our class learning tool, like a textbook. Treat it professionally."</p>
+                <p>Claude.ai has built-in safety features and won't engage with inappropriate content. If students try to misuse it, they'll simply get a refusal response—which itself becomes a learning moment about AI safety guardrails.</p>
+
+                <h3>"What if my school blocks Claude.ai?"</h3>
+                <p>Work with your IT department <strong>before the course starts</strong> to whitelist claude.ai. Explain this is an educational AI literacy course, not recreational AI use.</p>
+            </div>
+
+            <div class="section">
+                <h2>Pacing and Flexibility</h2>
+
+                <h3>Recommended Weekly Pattern</h3>
+                <p>Sample weekly schedule for daily 50-minute periods:</p>
+                <ul>
+                    <li><strong>Monday:</strong> Lesson Day (new content introduction)</li>
+                    <li><strong>Tuesday:</strong> Lab Day (hands-on experimentation)</li>
+                    <li><strong>Wednesday:</strong> Discussion Day (analysis and reflection)</li>
+                    <li><strong>Thursday:</strong> Lesson Day or Lab Day (depending on chapter)</li>
+                    <li><strong>Friday:</strong> Project Day, Discussion Day, or Assessment (varies by chapter)</li>
+                </ul>
+
+                <h3>Chapter Length Variability</h3>
+                <p>Chapters vary in length (7-13 lessons) based on content complexity:</p>
+                <ul>
+                    <li><strong>Shorter chapters</strong> (1, 7): Foundational or application-focused</li>
+                    <li><strong>Longer chapters</strong> (2, 3, 6): Conceptually dense with extended practice</li>
+                </ul>
+
+                <h3>"Flex Days"</h3>
+                <p>Some chapters include explicit flex days for:</p>
+                <ul>
+                    <li>Catching up struggling students</li>
+                    <li>Deepening learning for advanced students</li>
+                    <li>Addressing unexpected school closures</li>
+                    <li>Revisiting concepts before assessments</li>
+                    <li>Additional project work time</li>
+                </ul>
+
+                <div class="note-box">
+                    <strong>If you lose instructional time:</strong> Prioritize lab days (hands-on learning is irreplaceable). Combine related discussion days. Assign lesson day content as independent reading. Extend chapter slightly rather than rushing.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Building Parent and Administrator Support</h2>
+
+                <h3>Communicating Course Value</h3>
+                <div class="highlight-box">
+                    <h4>To parents:</h4>
+                    <p>"This course prepares students for a world where AI affects healthcare, employment, criminal justice, education, and daily life. Students won't just use AI—they'll understand it critically and collaborate with it effectively."</p>
+
+                    <h4>To administrators:</h4>
+                    <p>"Understanding AI addresses critical literacy skills students need for college and career readiness. It integrates STEM learning with social science analysis, serves diverse learners, and prepares citizens for democratic participation in technology policy."</p>
+                </div>
+
+                <h3>Sample Parent Newsletter Blurbs</h3>
+                <div class="philosophy-box">
+                    <p><strong>Week 1:</strong> "Students are beginning Understanding AI this semester. They'll conduct hands-on experiments with AI systems, document observations in field journals, and explore how artificial intelligence impacts society. Ask your student: 'What surprised you most about working with AI today?'"</p>
+
+                    <p><strong>Mid-semester:</strong> "Students are now experienced AI researchers! They're investigating how AI learns from data and where bias appears in algorithmic systems. At home, you might notice them pointing out AI in everyday life—from phone apps to streaming recommendations."</p>
+
+                    <p><strong>End of semester:</strong> "Students have completed their AI literacy journey! They've learned to collaborate effectively with AI tools, think critically about algorithmic decision-making, and understand the societal implications of machine learning."</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Your Role as Facilitator</h2>
+
+                <h3>What This Course Asks of You</h3>
+                <p><strong>You are a guide, not a sage.</strong> Your job isn't to have all the answers about AI—it's to:</p>
+                <ul>
+                    <li><strong>Facilitate student discovery</strong> through structured experiments</li>
+                    <li><strong>Ask probing questions</strong> that deepen thinking</li>
+                    <li><strong>Create safe space</strong> for intellectual risk-taking</li>
+                    <li><strong>Model curiosity</strong> about how technology works</li>
+                    <li><strong>Foster critical analysis</strong> of AI's societal impact</li>
+                    <li><strong>Support diverse learners</strong> in developing new skills</li>
+                </ul>
+
+                <h3>Professional Growth Opportunities</h3>
+                <p>Teaching this course will:</p>
+                <ul>
+                    <li>Develop your own AI literacy alongside students</li>
+                    <li>Refresh your inquiry-based teaching skills</li>
+                    <li>Connect you with cutting-edge educational approaches</li>
+                    <li>Position you as an innovative educator in your building</li>
+                    <li>Provide professional development in emerging technology</li>
+                </ul>
+
+                <h3>You've Got This</h3>
+                <p>If you're reading this guide, you're already doing the most important thing: preparing thoughtfully. Trust the structure, trust your students, and trust yourself.</p>
+                <p style="font-size: 1.2em; color: #667eea; font-weight: 600; margin-top: 20px;">Welcome to Understanding AI. Let's begin.</p>
+            </div>
+
+            <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h2 style="color: white; border-bottom: 3px solid white; margin-top: 0;">Ready to Start?</h2>
+                <p style="font-size: 1.1em; margin-top: 20px;"><strong>Next:</strong> Teacher's Guide for Lesson 1.1 - Three Kinds of Intelligence</p>
+            </div>
+
+        </div><!-- End scroll-content -->
+    </div><!-- End page-container -->
+
+</body>
+</html>
